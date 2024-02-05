@@ -15,3 +15,7 @@ def main [
 def "main boop" [] {
     boop
 }
+
+def "main error" [] {
+    error make {msg: "this is an error" }
+}

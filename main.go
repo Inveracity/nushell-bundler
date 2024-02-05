@@ -58,11 +58,7 @@ func run(tmpdir string, source string) (string, error) {
 	cmd := exe.Command(args...)
 
 	out, err := cmd.CombinedOutput()
-	if err != nil {
-		return "", err
-	}
-
-	return string(out), nil
+	return string(out), err
 }
 
 // Write the embedded nushell scripts to disk
@@ -71,7 +67,6 @@ func render(tmpdir string, src string) error {
 
 		if d.IsDir() {
 			newdir := path.Join(tmpdir, file)
-			//fmt.Printf("creating dir %s\n", newdir)
 			err := os.MkdirAll(newdir, 0777)
 			if err != nil {
 				return err
@@ -82,7 +77,6 @@ func render(tmpdir string, src string) error {
 				return err
 			}
 			newfile := path.Join(tmpdir, file)
-			//fmt.Printf("creating file %s\n", newfile)
 			if err := os.WriteFile(newfile, content, 0666); err != nil {
 				return err
 			}
